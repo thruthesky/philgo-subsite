@@ -13,6 +13,8 @@ import { PhilgoApiService } from '../providers/philgo-api/philgo-api.service';
 
 import { ForumPage } from '../pages/forum/forum';
 import { HomePage } from '../pages/home/home';
+import { TabsPage } from '../pages/tabs/tabs';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -41,7 +43,7 @@ export class MyApp {
     this.setNavigations();
 
     setTimeout( () => {
-      this.a.setRoot( 'ForumPage', { post_id: 'buyandsell', title: '장터 게시판' } );
+      // this.a.setRoot( 'ForumPage', { post_id: 'buyandsell', title: '장터 게시판' } );
     }, 300);
   }
 
@@ -52,6 +54,7 @@ export class MyApp {
 
     this.a.navCtrl = this.nav;
 
+    this.a.pages['TabsPage'] = TabsPage;
     this.a.pages['HomePage'] = HomePage;
     this.a.pages['ForumPage'] = ForumPage;
     

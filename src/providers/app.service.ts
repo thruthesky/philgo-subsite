@@ -166,7 +166,7 @@ export class AppService {
     }
 
     openCategory(category) {
-        this.setRoot('ForumPage', { post_id: this.postId, category: category, title: category });
+        this.push('ForumPage', { post_id: this.postId, category: category, title: category });
     }
 
     openForum(post_id) {
@@ -174,10 +174,10 @@ export class AppService {
         if ( post_id == 'qna' ) title = '질문과 답변';
         else if ( post_id == 'freetalk' ) title = '자유 게시판';
         else if ( post_id == 'buyandsell' ) title = '장터 게시판';
-        this.setRoot('ForumPage', { post_id: post_id, title: title });
+        this.push('ForumPage', { post_id: post_id, title: title });
     }
 
-    setRoot( page, params ) {
+    setRoot( page, params? ) {
         if ( this.pages[ page ] === void 0 ) return this.alert("잘못된 페이지입니다. app.service::setRoot()");
         let component = this.pages[ page ];
         this.navCtrl.setRoot(component, params, {
@@ -185,6 +185,17 @@ export class AppService {
             direction: 'forward'
         });
     }
+
+    push( page, params? ) {
+        if ( this.pages[ page ] === void 0 ) return this.alert("잘못된 페이지입니다. app.service::setRoot()");
+        let component = this.pages[ page ];
+        this.navCtrl.push(component, params, {
+            animate: true,
+            direction: 'forward'
+        });
+    }
+
+
 
 
 

@@ -54,10 +54,15 @@ export class ForumPage {
         if (this.noMorePosts) return;
         this.pageNo++;
 
+        this.a.showLoader();
         this.api.forumPage( this.req ).subscribe( re => {
             console.log('api.forumPage: ', re);
             this.displayPage( re );
-        }, e => this.a.alert(e) );
+            this.a.hideLoader();
+        }, e => {
+            this.a.hideLoader();
+            this.a.alert(e);
+         } );
 
     }
 
