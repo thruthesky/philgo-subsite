@@ -1,1 +1,43 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="sideMenu" side="right">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>메뉴</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button ion-item menuClose (click)="a.openCategory( a.info.settings.category1 );">
+        <ion-icon name="more" item-start></ion-icon>
+        {{ a.info.settings.category1 }}
+      </button>
+      <button ion-item menuClose (click)="a.openCategory( a.info.settings.category2 )">
+        <ion-icon name="more" item-start></ion-icon>
+        {{ a.info.settings.category2 }}
+      </button>
+      <button ion-item menuClose (click)="a.openCategory( a.info.settings.category3 )">
+        <ion-icon name="more" item-start></ion-icon>
+        {{ a.info.settings.category3 }}
+      </button>
+
+      <button ion-item menuClose (click)="a.openForum( 'buyandsell')">
+        <ion-icon name="cart" item-start></ion-icon>
+        장터 게시판
+      </button>
+      <button ion-item menuClose (click)="a.openForum( 'qna')">
+        <ion-icon name="help" item-start></ion-icon>
+        질문 게시판
+      </button>
+      <button ion-item menuClose (click)="a.openForum( 'freetalk')">
+        <ion-icon name="chatbubbles" item-start></ion-icon>
+        자유 게시판
+      </button>
+
+      <button ion-item menuClose>
+        <ion-icon name="close" item-start></ion-icon>
+        닫기
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #sideMenu [root]="rootPage"></ion-nav>

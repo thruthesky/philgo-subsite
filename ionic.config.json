@@ -2,5 +2,7 @@
   "name": "philgo-subsite",
   "app_id": "a97663b9",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }

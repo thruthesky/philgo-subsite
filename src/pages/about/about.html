@@ -1,11 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
-  </ion-navbar>
+  <header-component [title]=" '오시는 길' "></header-component>
 </ion-header>
 
 <ion-content padding>
 
+  <div>
+    <img src="{{ a.info.map_src }}">
+  </div>
+
+  <div>
+    만약 길을 찾지 못하시면 아래로 연락을 주세요.
+  </div>
+  <div>
+    {{ a.info.settings.contact }}
+  </div>
 </ion-content>
+
+

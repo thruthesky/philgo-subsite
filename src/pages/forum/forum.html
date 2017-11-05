@@ -1,0 +1,38 @@
+<ion-header>
+
+  <header-component [title]=" title "></header-component>
+
+</ion-header>
+
+<ion-content padding>
+  <ng-container *ngFor="let page of pages">
+    <ion-card *ngFor="let post of page.posts" [attr.idx]="post.idx">
+      <ion-item>
+
+        <ion-avatar item-start *ngIf=" post.member.idx_primary_photo ">
+          <img src="{{ api.getUrlFromIdx( post.member.idx_primary_photo ) }}">
+        </ion-avatar>
+
+        <h2>{{post.member.nickname}}</h2>
+
+
+
+      </ion-item>
+
+
+      <ion-card-header>
+        <b>{{post.subject}}</b>
+
+      </ion-card-header>
+
+
+      <ion-card-content>
+        <p [innerHTML]=" post.content "></p>
+      </ion-card-content>
+
+
+
+    </ion-card>
+
+  </ng-container>
+</ion-content>

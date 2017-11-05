@@ -1,17 +1,38 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Contact
-    </ion-title>
-  </ion-navbar>
+  <header-component [title]=" '연락처' "></header-component>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
+    <ion-list-header>아래의 연락처를 이용해 주세요.</ion-list-header>
+
+
     <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
+      <ion-icon name="phone-portrait" item-start></ion-icon>
+      {{ a.info.settings.mobile }}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="call" item-start></ion-icon>
+      {{ a.info.settings.landline }}
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="mail" item-start></ion-icon>
+      {{ a.info.settings.email }}
+    </ion-item>
+
+
+
+    <ion-item>
+      <ion-icon name="logo-facebook" item-start></ion-icon>
+      {{ a.info.settings.facebook }}
+    </ion-item>
+
+
+
+    <ion-item>
+      <ion-icon name="contact" item-start></ion-icon>
+      {{ a.info.settings.contact }}
     </ion-item>
   </ion-list>
 </ion-content>
