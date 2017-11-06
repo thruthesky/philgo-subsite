@@ -3,7 +3,6 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { AppService } from '../providers/app.service';
 
@@ -42,9 +41,9 @@ export class MyApp {
 
     this.setNavigations();
 
-    setTimeout( () => {
-      // this.a.setRoot( 'ForumPage', { post_id: 'buyandsell', title: '장터 게시판' } );
-    }, 300);
+    // setTimeout( () => {
+    //   this.a.push( 'ForumPage', { post_id: 'freetalk', title: '자유 게시판' } );
+    // }, 300);
   }
 
   /**

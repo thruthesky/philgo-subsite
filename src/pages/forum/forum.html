@@ -6,7 +6,8 @@
 
 <ion-content padding>
   <ng-container *ngFor="let page of pages">
-    <ion-card *ngFor="let post of page.posts" [attr.idx]="post.idx">
+  <ng-container *ngFor="let post of page.posts">
+    <ion-card [attr.idx]="post.idx">
       <ion-item>
 
         <ion-avatar item-start *ngIf=" post.member.idx_primary_photo ">
@@ -15,6 +16,8 @@
 
         <h2>{{post.member.nickname}}</h2>
 
+        <p>{{ a.shortDate( post.stamp ) }}, Lv.{{post.member.level}}</p>
+        
 
 
       </ion-item>
@@ -28,11 +31,50 @@
 
       <ion-card-content>
         <p [innerHTML]=" post.content "></p>
+
+        
+        <ion-grid *ngIf=" post.photos.length ">
+            <ion-row *ngFor=" let chunks of post.photos ">
+                <ion-col *ngFor=" let photo of chunks ">
+                    <img src="{{ photo.url_thumbnail }}">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+
+
       </ion-card-content>
 
 
 
     </ion-card>
 
+
+    <ion-list *ngIf=" post.comments && post.comments.length ">
+        <ion-item *ngFor=" let comment of post.comments ">
+          <ion-avatar item-start *ngIf="comment.member.idx_primary_photo">
+            <img src="{{ api.getUrlFromIdx( comment.member.idx_primary_photo ) }}">
+          </ion-avatar>
+          <h2>{{ comment.member.nickname }} Lv.{{ comment.member.level }}</h2>
+          <p text-wrap [innerHTML]="comment.content"></p>
+        </ion-item>
+      </ion-list>
+
   </ng-container>
+</ng-container>
+
+  <div class="mt-4" *ngIf="noMorePosts">
+      <hr>
+        <h4 text-center>앗, 더 이상 글이 없습니다.</h4>
+      </div>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="로딩 중입니다...">
+        ></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+
+
 </ion-content>

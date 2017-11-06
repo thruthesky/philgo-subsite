@@ -40,7 +40,7 @@ export class AppService {
         this.api.subsiteInfo({
             sub_domain: this.subsiteDomain,
             cache_id: 'siteinfo',
-            callback: re => { this.info = re; console.log("cached info with callback() : ", re); }
+            cache_callback: re => { this.info = re; console.log("cached info with callback() : ", re); }
         }).subscribe(re => {
             this.info = re;
             // console.log('siteinfo: re: ', re);
@@ -69,7 +69,10 @@ export class AppService {
         this.loader.present();
     }
     hideLoader() {
-        if (this.loader) this.loader.dismiss();
+        if (this.loader) {
+            this.loader.dismiss();
+            this.loader = null;
+        }
     }
 
 

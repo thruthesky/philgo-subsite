@@ -1,0 +1,91 @@
+
+// colors
+@each $animal in white,
+black,
+snow,
+ghostwhite,
+darkgrey,
+grey,
+dimgrey,
+slategrey,
+lightgrey,
+lightslategrey,
+blue,
+dodgerblue,
+brown,
+red,
+darkred,
+salmon,
+lightsalmon,
+orange,
+darkorange,
+wheat,
+olive,
+yellowgreen,
+limegreen,
+green,
+darkgreen,
+darkviolet,
+slateblue,
+darkslateblue,
+indigo,
+teal,
+skyblue {
+  .#{$animal} {
+    color: #{$animal}!important;
+  }
+  .bg-#{$animal} {
+    background-color: #{$animal}!important;
+  }
+}
+
+$sizer: 1rem !default;
+$sizers: ( 0: 0, 1: ($spacer * .25), 2: ($spacer * .5), 3: $spacer, 
+4: ($spacer * 1.5), 5: ($spacer * 3), 6: ($spacer * 5), 7: ($spacer * 7), 
+8: ($spacer * 10), 9: ($spacer * 12), 10: ($spacer * 14),
+11: ($spacer * 16), 12: ($spacer * 18), 13: ($spacer * 18),
+14: ($spacer * 20), 15: ($spacer * 25)
+) !default;
+// width, height, size, z-index
+// colors
+@each $size,
+$length in $sizers {
+  .size-#{$size} {
+    width: #{$length};
+    height: #{$length};
+  }
+  .w-#{$size} {
+    width: #{$length};
+  }
+  .h-#{$size} {
+    height: #{$length};
+  }
+  .z-#{$size} {
+    z-index: #{$length}00;
+  }
+}
+
+// top, left, right, bottom
+@each $abbr, $position in (t: top, l: left, r: right, b: bottom ) {
+  @each $size, $length in $sizers {
+    .#{$abbr}-#{$size} {
+      #{$position}: #{$length};
+    }
+  }
+}
+
+.p-relative {
+  position: relative!important;
+}
+
+.p-absolute {
+  position: absolute!important;
+}
+
+.of-hidden {
+  overflow: hidden;
+}
+
+.rounded-50 {
+  border-radius: 50%!important;
+}

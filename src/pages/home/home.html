@@ -5,13 +5,27 @@
 </ion-header>
 
 <ion-content padding>
-  {{ a.info.settings | json }}
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the
-    <code>src/pages/</code> directory to add or change tabs, update any existing page or create new pages.
-  </p>
+
+  <section *ngIf=" page ">
+    <ion-card *ngFor=" let post of page.posts ">
+        <img src="{{post.photos[0][0].url}}"/>
+        <ion-card-content>
+          <ion-card-title>
+            {{ post.title }}
+            </ion-card-title>
+          <p [innerHTML]="post.content"></p>
+
+        <ion-grid class="mt-3" *ngIf=" post.photos.length > 1 " no-padding>
+            <ion-row *ngFor=" let chunks of post.photos ">
+                <ion-col *ngFor=" let photo of chunks ">
+                    <img src="{{ photo.url_thumbnail }}">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        </ion-card-content>
+      </ion-card>
+    </section>
+  
+
 </ion-content>

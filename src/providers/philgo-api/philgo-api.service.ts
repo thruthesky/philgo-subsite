@@ -60,7 +60,7 @@ export class PhilgoApiService {
      *      data['route'] - route
      * 
      *      data['cache_id'] - cache_id. 캐시아이디를 입력하면, 캐시가 있는지 검사한다.
-     *          만약 캐시가 있으면, data['callback'] 를 호출한다.
+     *          만약 캐시가 있으면, data['cache_callback'] 를 호출한다.
      * 
      */
     post(data): Observable<any> {
@@ -70,15 +70,16 @@ export class PhilgoApiService {
 
 
         let cache_id = data['cache_id'];
-        if ( cache_id ) {
-            let cache_data = this.get( cache_id );
-            if ( cache_data ) data['callback']( cache_data );
-            delete data['cache_id'];
-            delete data['callback'];        
+        if (cache_id) {
+            let cache_data = this.get(cache_id);
+            if (cache_data) data['cache_callback'](cache_data);
         }
-        
+
+        if (data['cache_id']) delete data['cache_id'];
+        if (data['cache_callback']) delete data['cache_callback'];
+
         console.log('post url: ', this.serverUrl + '?' + this.http_build_query(data));
-        
+
         return this.http.post(this.serverUrl, data)
             .map(res => {
                 console.log("resonse: ", res);
@@ -92,38 +93,38 @@ export class PhilgoApiService {
                 }
                 else if (res['code'] != 0) {
                     if (res['message'] === void 0) res['message'] = 'No error message from server.';
-                    return this.throw( res['code'], res['message']);
+                    return this.throw(res['code'], res['message']);
                 }
                 else return res['data'];
             })
-            .map( res => {
-                this.set( cache_id, res );
+            .map(res => {
+                this.set(cache_id, res);
                 return res;
             })
             .catch(e => {
                 console.log("post() => catch {} : with : ", e.message);
-                if ( this.error(e).code ) return this.throw( this.error(e).code, this.error(e).message );
+                if (this.error(e).code) return this.throw(this.error(e).code, this.error(e).message);
                 return this.throw(-1, '서버 접속에 실패하였습니다.');
             });
     }
 
-    set( name, value ) {
-        localStorage.setItem( name, JSON.stringify(value) );
+    set(name, value) {
+        localStorage.setItem(name, JSON.stringify(value));
     }
-    get( name ) {
-        let data = localStorage.getItem( name );
+    get(name) {
+        let data = localStorage.getItem(name);
         try {
-            return JSON.parse( data );
+            return JSON.parse(data);
         }
         catch (e) {
             return data;
         }
 
-        
+
     }
 
 
-    
+
 
     /**
      * To throw an error or To return an Observable error.
@@ -227,14 +228,14 @@ export class PhilgoApiService {
     }, e => a.alert( e ) );
 
      */
-    subsiteInfo( data ) {
+    subsiteInfo(data) {
         data['method'] = 'subsiteInfo';
-        return this.post( data );
+        return this.post(data);
     }
 
-    forumPage( data ) {
+    forumPage(data) {
         data['method'] = 'forumPage';
-        return this.post( data );
+        return this.post(data);
     }
 
 
@@ -247,6 +248,26 @@ export class PhilgoApiService {
 
 
     }
+
+
+    pre(page) {
+        for (let post of page.posts) {
+            post.photos = this.getChunks(post.photos);
+        }
+    }
+
+
+    getChunks(photos) {
+        if (!photos || !photos.length) return [];
+        let arrays = [];
+        const size = 3;
+        while (photos.length > 0) {
+            arrays.push(photos.splice(0, size));
+        }
+        return arrays;
+    }
+
+
 
 
 
